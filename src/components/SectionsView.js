@@ -8,8 +8,29 @@
     setCurrentSection - a callback that expects a section as an argument
 
 */
+import PropTypes from "prop-types";
 import styles from "../styles/SectionsView.module.css";
 
 export default function SectionsView({ sections, setCurrentSection }) {
-  return <div className={styles.sectionList}>Sections go here</div>;
+  const sortedSections = [...sections].sort();
+  return (
+    <div>
+      <ul className={styles.sectionList}>
+        {sortedSections.sort().map((section) => (
+          <li
+            data-testid="section"
+            key={section}
+            onClick={() => setCurrentSection(section)}
+          >
+            {section}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
+
+SectionsView.propTypes = {
+  sections: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setCurrentSection: PropTypes.func.isRequired,
+};
