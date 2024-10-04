@@ -18,8 +18,19 @@
 
 import ArticleShape from "./ArticleShape";
 import styles from "../styles/Editor.module.css";
+import PropTypes from "prop-types";
 
 export default function Editor({ currentArticle, complete }) {
-  return <p>Editor</p>;
+  return (<div>
+    <input type="text" placeholder="Title must be set"/>
+    <textarea type="text" placeholder="Contents"/>
+    <button type="button">Save</button>
+    <button type="button">Cancel</button>
+    </div>)
+}
+
+Editor.propTypes = {
+  currentArticle: ArticleShape,
+  complete: PropTypes.func.isRequired
 }
 
