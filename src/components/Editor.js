@@ -31,7 +31,7 @@ export default function Editor({ currentArticle, complete }) {
   // handler for the save button
   const handleSave = () => {
     const newArticle = {
-      ...currentArticle, // Copy the existing fields from the current article
+      ...currentArticle, // Copy the existing fields from the current article,
       title, // update the title field
       contents, // update the content field
       edited: new Date().toISOString(),
@@ -40,18 +40,18 @@ export default function Editor({ currentArticle, complete }) {
   };
 
   return (
-    <div class={styles.editor}>
+    <div className={styles.editor} key={currentArticle?.id}>
       <input
         type="text"
-        placeholder="Title must be set"
-        class="input-field"
+        placeholder={title}
+        className="input-field"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
       <textarea
         type="text"
-        placeholder="Contents"
-        class="textarea-field"
+        placeholder={contents}
+        className="textarea-field"
         value={contents}
         onChange={(e) => setContents(e.target.value)}
       />
