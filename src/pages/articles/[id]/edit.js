@@ -4,6 +4,7 @@ import ArticleShape from "../../../components/ArticleShape";
 import Editor from "../../../components/Editor";
 
 export default function SimplepediaEditor({
+  collection,
   setCollection,
   setCurrentArticle,
   currentArticle,
@@ -12,14 +13,15 @@ export default function SimplepediaEditor({
 
   const handleComplete = (updatedArticle) => {
     if (updatedArticle) {
-      // Update the existing article in the collection
-      setCollection((prevCollection) =>
-        prevCollection.map((article) =>
-          article.id === updatedArticle.id
-            ? { ...article, ...updatedArticle }
-            : article,
-        ),
+      // Compute the updated collection before setting it
+      const updatedCollection = collection.map((article) =>
+        article.id === updatedArticle.id
+          ? { ...article, ...updatedArticle }
+          : article,
       );
+
+      // Now call setCollection with the updated collection directly
+      setCollection(updatedCollection);
 
       // Set the updated article as the current article
       setCurrentArticle(updatedArticle);
@@ -32,6 +34,7 @@ export default function SimplepediaEditor({
 }
 
 SimplepediaEditor.propTypes = {
+  collection: PropTypes.arrayOf(ArticleShape).isRequired,
   setCollection: PropTypes.func.isRequired,
   setCurrentArticle: PropTypes.func.isRequired,
   currentArticle: ArticleShape.isRequired,

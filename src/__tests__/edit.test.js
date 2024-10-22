@@ -121,6 +121,7 @@ describe("SimplepediaEditor: editor page tests", () => {
       const save = screen.queryByRole("button", { name: "Save" });
       fireEvent.click(save);
       const [args] = setCollectionMock.mock.calls;
+      console.log(args[0]); // This will give you more details about the value.
       const check = args[0].some(
         (item) =>
           item.title === newArticle.title &&
