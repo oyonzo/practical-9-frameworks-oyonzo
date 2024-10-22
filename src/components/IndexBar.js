@@ -9,19 +9,25 @@
     setCurrentArticle - Function to call set current article displayed
     currentArticle - The article to render
 */
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import SectionsView from "./SectionsView";
 import TitlesView from "./TitlesView";
 import ArticleShape from "./ArticleShape";
 
-function IndexBar({ collection, setCurrentArticle }) {
+function IndexBar({ collection, setCurrentArticle, currentArticle }) {
   const [currentSection, setCurrentSection] = useState(null);
 
   // make sections from collection
   const sections = Array.from(
     new Set(collection.map((article) => article.title[0].toUpperCase())),
   );
+
+  useEffect(() => {
+    if (currentArticle) {
+      setCurrentSection(currentArticle.title[0].toUpperCase());
+    }
+  }, [currentArticle]);
 
   // handler for when a section is selected
   const selectSection = (section) => {
@@ -60,6 +66,7 @@ function IndexBar({ collection, setCurrentArticle }) {
 IndexBar.propTypes = {
   collection: PropTypes.arrayOf(ArticleShape).isRequired,
   setCurrentArticle: PropTypes.func.isRequired,
+  currentArticle: ArticleShape,
 };
 
 export default IndexBar;
