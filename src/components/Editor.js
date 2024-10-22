@@ -15,11 +15,59 @@
     currentArticle - object with `title` and `contents` properties at minimum
     complete - function to call on completion (required)
 */
-
+import { useState } from "react";
+import PropTypes from "prop-types";
 import ArticleShape from "./ArticleShape";
 import styles from "../styles/Editor.module.css";
 
 export default function Editor({ currentArticle, complete }) {
-  return <p>Editor</p>;
+  const [title, setTitle] = useState(
+    currentArticle ? currentArticle.title : "",
+  );
+  const [contents, setContents] = useState(
+    currentArticle ? currentArticle.contents : "",
+  );
+
+  // handler for the save button
+  const handleSave = () => {
+    const newArticle = {
+      ...currentArticle, // Copy the existing fields from the current article
+      title, // update the title field
+      contents, // update the content field
+      edited: new Date().toISOString(),
+    };
+    complete(newArticle);
+  };
+
+  return (
+    <div class={styles.editor}>
+      <input
+        type="text"
+        placeholder="Title must be set"
+        class="input-field"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <textarea
+        type="text"
+        placeholder="Contents"
+        class="textarea-field"
+        value={contents}
+        onChange={(e) => setContents(e.target.value)}
+      />
+      <div>
+        <button type="button" onClick={handleSave} disabled={!title}>
+          Save
+        </button>
+        <button type="button" onClick={() => complete()}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  );
 }
 
+Editor.propTypes = {
+  currentArticle: ArticleShape,
+  complete: PropTypes.func.isRequired,
+};
