@@ -20,12 +20,14 @@ export default function SimplepediaCreator({
 
   const handleComplete = (article) => {
     if (article) {
+      const Id = highestId + 1;
       const newArticle = {
         ...article,
-        id: highestId + 1,
+        id: Id,
       };
-      setCollection(() => [...collection, newArticle]); //  add the article to the collection
+      setCollection([...collection, newArticle]); //  add the article to the collection
       setCurrentArticle(newArticle); // make the new article the current article
+      router.push(`/articles/${Id}`);
     } else {
       router.back(); // if there is no article, go back
     }

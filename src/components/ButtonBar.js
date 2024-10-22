@@ -30,6 +30,6 @@ export default function ButtonBar({ allowEdit, handleClick }) {
 }
 
 ButtonBar.propTypes = {
-  allowEdit: Boolean,
+  allowEdit: PropTypes.bool,
   handleClick: PropTypes.func,
 };

@@ -14,7 +14,7 @@ function MainApp({ Component, pageProps }) {
   const [collection, setCollection] = useState(data);
   const { id } = router.query;
   const currentArticle = id
-    ? data.find((article) => article.id === +id)
+    ? collection.find((article) => article.id === +id)
     : undefined; // + to convert string to number
 
   // eslint-disable-next-line no-console
