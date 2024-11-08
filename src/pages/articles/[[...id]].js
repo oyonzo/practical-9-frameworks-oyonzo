@@ -30,17 +30,16 @@ export default function Simplepedia({
   return (
     <>
       <div>
+        <ButtonBar handleClick={handleClick} allowEdit={allowEdit} />
+      </div>
+      <div>
         <IndexBar
           collection={collection}
           setCurrentArticle={setCurrentArticle}
           currentArticle={currentArticle}
-        />
-      </div>
-      <div>
-        <Article currentArticle={currentArticle} />
-      </div>
-      <div>
-        <ButtonBar handleClick={handleClick} allowEdit={allowEdit} />
+        >
+          <Article currentArticle={currentArticle} />
+        </IndexBar>
       </div>
     </>
   );

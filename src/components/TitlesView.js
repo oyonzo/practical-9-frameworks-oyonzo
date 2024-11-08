@@ -9,7 +9,13 @@
 
 */
 import PropTypes from "prop-types";
+import { styled } from "@mui/material/styles";
 import ArticleShape from "./ArticleShape";
+
+const NoBulletList = styled("ul")(() => ({
+  listStyle: "none",
+  paddingLeft: 0,
+}));
 
 export default function TitlesView({ articles, setCurrentArticle }) {
   const sortedArticles = [...articles].sort((a, b) =>
@@ -17,7 +23,7 @@ export default function TitlesView({ articles, setCurrentArticle }) {
   );
   return (
     <div>
-      <ul>
+      <NoBulletList>
         {
           // sort by article titles
           sortedArticles.map((article) => (
@@ -30,7 +36,7 @@ export default function TitlesView({ articles, setCurrentArticle }) {
             </li>
           ))
         }
-      </ul>
+      </NoBulletList>
     </div>
   );
 }

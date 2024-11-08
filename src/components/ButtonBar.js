@@ -13,19 +13,19 @@
     handleClick - a function called when a button is clicked (required)
 */
 import PropTypes from "prop-types";
+import { ButtonGroup, Button } from "@mui/material";
 
 export default function ButtonBar({ allowEdit, handleClick }) {
   return (
-    <div>
-      <button id="add" type="button" onClick={() => handleClick("add")}>
-        Add
-      </button>
+    <ButtonGroup variant="contained" sx={{ my: 2 }}>
+      <Button onClick={() => handleClick("add")}>Add</Button>
+      {/* Add in your optional edit button */}
       {allowEdit && (
-        <button type="button" onClick={() => handleClick("edit")}>
+        <Button type="button" onClick={() => handleClick("edit")}>
           Edit
-        </button>
+        </Button>
       )}
-    </div>
+    </ButtonGroup>
   );
 }
 

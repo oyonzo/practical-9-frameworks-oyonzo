@@ -11,11 +11,13 @@
 */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid2";
 import SectionsView from "./SectionsView";
 import TitlesView from "./TitlesView";
 import ArticleShape from "./ArticleShape";
 
-function IndexBar({ collection, setCurrentArticle, currentArticle }) {
+function IndexBar({ collection, setCurrentArticle, currentArticle, children }) {
   const [currentSection, setCurrentSection] = useState(null);
 
   // make sections from collection
@@ -45,21 +47,27 @@ function IndexBar({ collection, setCurrentArticle, currentArticle }) {
       [];
 
   return (
-    <div>
-      {/* SectionsView Component */}
-      <SectionsView sections={sections} setCurrentSection={selectSection} />
-
-      {/* TitlesView */}
-      {currentSection ? (
+    <Grid container spacing={2} xs={12}>
+      <Grid>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <SectionsView
+            sections={sections}
+            setCurrentSection={selectSection}
+            currentSection={currentSection}
+          />
+        </Box>
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
         <TitlesView
           articles={articlesInCurrentSection}
           setCurrentArticle={setCurrentArticle}
         />
-      ) : (
-        // If no section is selected:
-        <p>Select a section</p>
-      )}
-    </div>
+      </Grid>
+      <Grid item xs={12} sm={6} md={9}>
+        {children}{" "}
+        {/* Render children here, allowing IndexBar to wrap around the Article component */}
+      </Grid>
+    </Grid>
   );
 }
 
@@ -67,6 +75,7 @@ IndexBar.propTypes = {
   collection: PropTypes.arrayOf(ArticleShape).isRequired,
   setCurrentArticle: PropTypes.func.isRequired,
   currentArticle: ArticleShape,
+  children: PropTypes.node,
 };
 
 export default IndexBar;

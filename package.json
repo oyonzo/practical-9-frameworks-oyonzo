@@ -20,6 +20,12 @@
     "gradescope": "zip -r gradescope.zip setup.sh run_autograder assessment"
   },
   "dependencies": {
+    "@emotion/cache": "^11.13.1",
+    "@emotion/react": "^11.13.3",
+    "@emotion/server": "^11.11.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.1.6",
+    "@mui/material-nextjs": "^6.1.6",
     "next": "13.5.6",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
