@@ -48,7 +48,7 @@ function MainApp(appProps) {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: styledTheme.spacing(5),
+    marginTop: styledTheme.spacing(-5),
     paddingTop: styledTheme.spacing(2),
   }));
 

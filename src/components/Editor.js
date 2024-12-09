@@ -1,22 +1,6 @@
-/*
-  Editor.js
-
-  This provides a basic editor with space for entering a title and a body.
-
-  The interface has two buttons. If "Cancel" is clicked, the `complete` callback
-  is called with no arguments. If the "Save" button is clicked, the `complete` callback
-  is called with a new article object with `title`, `contents`, and `date`. 
-
-  If the optional `article` prop is set, the `title` and `contents` fields of the component
-  are pre-loaded with the values. In addition, all other properties of the object are 
-  included in the returned article object. 
-
-  props:
-    currentArticle - object with `title` and `contents` properties at minimum
-    complete - function to call on completion (required)
-*/
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { TextField, Button, Stack } from "@mui/material";
 import ArticleShape from "./ArticleShape";
 import styles from "../styles/Editor.module.css";
 
@@ -28,12 +12,12 @@ export default function Editor({ currentArticle, complete }) {
     currentArticle ? currentArticle.contents : "",
   );
 
-  // handler for the save button
+  // Handler for the save button
   const handleSave = () => {
     const newArticle = {
-      ...currentArticle, // Copy the existing fields from the current article,
-      title, // update the title field
-      contents, // update the content field
+      ...currentArticle, // Copy the existing fields from the current article
+      title, // Update the title field
+      contents, // Update the content field
       edited: new Date().toISOString(),
     };
     complete(newArticle);
@@ -41,28 +25,50 @@ export default function Editor({ currentArticle, complete }) {
 
   return (
     <div className={styles.editor} key={currentArticle?.id}>
-      <input
-        type="text"
-        placeholder={title}
-        className="input-field"
+      {/* Title field using Material UI TextField */}
+      <TextField
+        required
+        fullWidth
+        margin="normal"
+        id="title"
+        label="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        error={!title}
+        helperText={!title ? "Title can't be blank" : " "}
       />
-      <textarea
-        type="text"
-        placeholder={contents}
-        className="textarea-field"
+
+      {/* Contents field using Material UI TextField with multiline */}
+      <TextField
+        fullWidth
+        multiline
+        rows={10}
+        margin="normal"
+        id="contents"
+        label="Contents"
         value={contents}
         onChange={(e) => setContents(e.target.value)}
+        sx={{
+          "& .MuiInputBase-root": {
+            paddingTop: 0, // Remove extra padding at the top
+          },
+        }}
       />
-      <div>
-        <button type="button" onClick={handleSave} disabled={!title}>
+
+      {/* Buttons wrapped in a Stack for horizontal layout */}
+      <Stack spacing={2} direction="row">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSave}
+          disabled={!title}
+        >
           Save
-        </button>
-        <button type="button" onClick={() => complete()}>
+        </Button>
+        <Button variant="contained" color="primary" onClick={() => complete()}>
           Cancel
-        </button>
-      </div>
+        </Button>
+      </Stack>
     </div>
   );
 }

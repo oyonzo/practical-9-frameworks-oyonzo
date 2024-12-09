@@ -47,8 +47,9 @@ function IndexBar({ collection, setCurrentArticle, currentArticle, children }) {
       [];
 
   return (
-    <Grid container spacing={2} xs={12}>
-      <Grid>
+    <Grid container spacing={2} direction="column">
+      {/* SectionsView stays at the top, spanning the full width */}
+      <Grid item xs={12}>
         <Box display="flex" justifyContent="center" alignItems="center">
           <SectionsView
             sections={sections}
@@ -57,15 +58,20 @@ function IndexBar({ collection, setCurrentArticle, currentArticle, children }) {
           />
         </Box>
       </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <TitlesView
-          articles={articlesInCurrentSection}
-          setCurrentArticle={setCurrentArticle}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={9}>
-        {children}{" "}
-        {/* Render children here, allowing IndexBar to wrap around the Article component */}
+
+      <Grid item xs={12}>
+        <Box display="flex" width="100%">
+          {/* TitlesView fixed at the left (sidebar) */}
+          <Box sx={{ width: "300px", flexShrink: 0 }}>
+            <TitlesView
+              articles={articlesInCurrentSection}
+              setCurrentArticle={setCurrentArticle}
+            />
+          </Box>
+
+          {/* Main article content */}
+          <Box sx={{ flexGrow: 1, paddingLeft: 2 }}>{children}</Box>
+        </Box>
       </Grid>
     </Grid>
   );
